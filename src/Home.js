@@ -4,6 +4,9 @@ import "weather-icons/css/weather-icons.css";
 import axios from "axios";
 import WeatherIcon from "./Components/WeatherIcon";
 import Select from "./Components/Select";
+import CurrentDate from "./Components/CurrentDate";
+
+import "./css/Home.css";
 
 const Home = () => {
   //   const API_KEY = "401acd43fd2881e79258885c51d74221";
@@ -38,7 +41,7 @@ const Home = () => {
     name: "London",
     cod: 200,
   });
-  const [isLoading, setLoading] = useState(true);
+
   const [city, setCity] = useState("");
 
   // useEffect(() => {
@@ -68,41 +71,40 @@ const Home = () => {
   const Temperature = (data.main.temp - 273.15).toFixed(1);
   const MaxTemperature = (data.main.temp_max - 273.15).toFixed(1);
   const MinTemperature = (data.main.temp_min - 273.15).toFixed(1);
-  console.log(MaxTemperature);
+
   return (
-    <div>
-      <h1> hello weather</h1>
+    <div className={`${Temperature > 16 ? "warm" : "cold"}`}>
+      <h1>Weather App</h1>
       <form action="">
-        <label>Type Name of City</label>
         <input
+          className="input__Home"
           type="text"
           onChange={handleInput}
           name="city"
           placeholder="Enter City name"
         />
       </form>
-      <Select setCity={setCity} />
-      <h1>{data.name}</h1>
-      <h1>{data.sys.country}</h1>
-
-      <WeatherIcon data={data} />
-
-      <h1>{Temperature}&deg;C</h1>
-
-      <h1>Max temperature {MaxTemperature}&deg;C</h1>
-      <h1>Min temperature {MinTemperature}&deg;C</h1>
+      <div>
+        <Select setCity={setCity} city={city} />
+      </div>
+      <div className="city__home">
+        <h1>{data.name}</h1>
+        <h1>, {data.sys.country}</h1>
+      </div>
+      <CurrentDate />
+      <div className="tempIcon__home">
+        <div className="temperature__home">
+          <h1>{Temperature}</h1>
+          <h3> &deg;C</h3>
+        </div>
+        <WeatherIcon data={data} />
+      </div>
+      <h2>
+        min {MinTemperature}&deg;C - max {MaxTemperature}&deg;C
+      </h2>
 
       <h1>{data.weather.description}</h1>
     </div>
-  );
-};
-
-const minmaxTemp = (min, max) => {
-  return (
-    <h3>
-      <span>{min}&deg;</span>
-      <span>{max}&deg;</span>
-    </h3>
   );
 };
 

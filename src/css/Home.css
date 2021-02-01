@@ -1,0 +1,59 @@
+.temperature__home {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5%;
+  padding: 15px 25px;
+
+  color: #fff;
+  font-size: 52px;
+  font-weight: 900;
+
+  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+}
+.temperature__home > h1 {
+  font-size: 102px;
+  font-weight: 900;
+}
+
+.tempIcon__home {
+  display: inline-block;
+
+  opacity: 1;
+}
+
+.warm {
+  background-size: cover;
+  height: 100vh;
+  background-image: url("https://www.daytondailynews.com/resizer/nLUTNyVOLgwRYmKk60MsFqx2zN8=/1066x600/cloudfront-us-east-1.images.arcpublishing.com/coxohio/BIH4JXE4BCZV5ALE3R6M6XC77Q.jpg");
+}
+.cold {
+  background-image: url("https://images.wallpaperscraft.com/image/canada_desert_snow_cold_sky_7039_1600x900.jpg");
+  height: 100vh;
+  background-size: cover;
+}
+.city__home {
+  display: flex;
+  justify-content: center;
+}
+h1,
+h2,
+h3 {
+  text-shadow: 3px 2px rgba(50, 50, 70, 0.5);
+  letter-spacing: 0.2rem;
+  padding-top: 5px;
+}
+.input__Home {
+  padding: 0.5rem;
+}
+input[type="text"],
+select {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

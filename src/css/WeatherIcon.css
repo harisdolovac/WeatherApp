@@ -1,0 +1,10 @@
+.icon__weatherIcon {
+  padding: 15px 25px;
+
+  color: #fff;
+  font-size: 102px;
+  font-weight: 900;
+
+  text-shadow: 3px 6px rgba(50, 50, 70, 0.5);
+  text-align: center;
+}

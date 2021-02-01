@@ -1,6 +1,8 @@
 import React from "react";
 
-const Select = ({ setCity }) => {
+const Select = ({ setCity, city }) => {
+  const handleSubmit = (e) => e.preventDefault();
+
   const handleChange = (e) => {
     e.preventDefault();
     setCity(e.target.value);
@@ -8,8 +10,9 @@ const Select = ({ setCity }) => {
 
   return (
     <div>
-      <form onChange={handleChange}>
-        <select value="London">
+      <h3>Choose from popular</h3>
+      <form onSubmit={handleSubmit}>
+        <select value={city} onChange={handleChange}>
           <option value="Washington">Washington</option>
           <option value="New York">New York</option>
           <option value="Amsterdam">Amsterdam</option>
