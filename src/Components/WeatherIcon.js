@@ -6,7 +6,7 @@ const WeatherIcon = ({ data }) => {
     if (data !== "undefined") {
       return data.weather.map((res) => {
         if (res.id >= 200 && res.id <= 232) {
-          return <i key={res.id} className="wi wi-thunderstorm"></i>;
+          return <i key={res.id} className="wi wi-thunderstorm"></i>
         } else if (res.id >= 300 && res.id <= 321) {
           return <i key={res.id} className="wi wi-rain-mix"></i>;
         } else if (res.id >= 500 && res.id <= 531) {

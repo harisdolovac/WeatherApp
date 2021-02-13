@@ -1,111 +1,87 @@
-import React, { useEffect, useState } from "react";
-import "weather-icons/css/weather-icons.css";
+import React, { useState } from "react";
 
-import axios from "axios";
 import WeatherIcon from "./Components/WeatherIcon";
-import Select from "./Components/Select";
 import CurrentDate from "./Components/CurrentDate";
 
+import GeoLocation from "./Components/GeoLocation";
+import Search from "./Components/Search";
+
+import "weather-icons/css/weather-icons.css";
 import "./css/Home.css";
 
 const Home = () => {
-  //   const API_KEY = "401acd43fd2881e79258885c51d74221";
-
-  const [data, setData] = useState({
-    coord: { lon: -0.1257, lat: 51.5085 },
-    weather: [
-      { id: 803, main: "Clouds", description: "broken clouds", icon: "04n" },
-    ],
-    base: "stations",
-    main: {
-      temp: 283.81,
-      feels_like: 281.94,
-      temp_min: 283.71,
-      temp_max: 284.26,
-      pressure: 997,
-      humidity: 93,
-    },
-    visibility: 4900,
-    wind: { speed: 2.57, deg: 200 },
-    clouds: { all: 75 },
-    dt: 1611871586,
-    sys: {
-      type: 1,
-      id: 1414,
-      country: "GB",
-      sunrise: 1611819874,
-      sunset: 1611852130,
-    },
-    timezone: 0,
-    id: 2643743,
-    name: "London",
-    cod: 200,
-  });
-
+  const [data, setData] = useState({});
+  const [loactionCity, setLocationCity] = useState("");
   const [city, setCity] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // useEffect(() => {
-  //   const fetchItems = async () => {
-  //     const results = await axios
-  //       .get(`https://api.openweathermap.org/data/2.5/weather?q=London`, {
-  //         headers: {},
-  //         params: {
-  //           appid: "401acd43fd2881e79258885c51d74221",
-  //         },
-  //       })
-  //       .then((res) => setData(() => res.data));
-  //     setLoading(false);
-  //   };
-  //   fetchItems();
-  // }, []);
+  if (Object.keys(data).length) {
+    var toC = data.main.temp;
+    var toC_max = data.main.temp_max;
+    var toC_min = data.main.temp_min;
+    toC = Math.floor(data.main.temp - 273.15);
+    toC_max = Math.floor(data.main.temp_max - 273.15);
+    toC_min = Math.floor(data.main.temp_min - 273.15);
+  }
 
-  const handleInput = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    setCity(e.target.value);
-  };
-
+  console.log(loactionCity);
   console.log(data);
-  console.log(city);
 
-  const Temperature = (data.main.temp - 273.15).toFixed(1);
-  const MaxTemperature = (data.main.temp_max - 273.15).toFixed(1);
-  const MinTemperature = (data.main.temp_min - 273.15).toFixed(1);
-
-  return (
-    <div className={`${Temperature > 16 ? "warm" : "cold"}`}>
-      <h1>Weather App</h1>
-      <form action="">
-        <input
-          className="input__Home"
-          type="text"
-          onChange={handleInput}
-          name="city"
-          placeholder="Enter City name"
+  if (Object.keys(data).length === 0) {
+    return (
+      <div className="default__home">
+        <h1>Weather App</h1>
+        <GeoLocation
+          setData={setData}
+          setErrorMessage={setErrorMessage}
+          loactionCity={loactionCity}
+          setLocationCity={setLocationCity}
         />
-      </form>
-      <div>
-        <Select setCity={setCity} city={city} />
+        <Search
+          setCity={setCity}
+          city={city}
+          setData={setData}
+          setErrorMessage={setErrorMessage}
+        />
+        <h4 style={{ color: "red" }}>{errorMessage}</h4>
+        <CurrentDate />
       </div>
-      <div className="city__home">
-        <h1>{data.name}</h1>
-        <h1>, {data.sys.country}</h1>
-      </div>
-      <CurrentDate />
-      <div className="tempIcon__home">
-        <div className="temperature__home">
-          <h1>{Temperature}</h1>
-          <h3> &deg;C</h3>
-        </div>
-        <WeatherIcon data={data} />
-      </div>
-      <h2>
-        min {MinTemperature}&deg;C - max {MaxTemperature}&deg;C
-      </h2>
+    );
+  } else {
+    return (
+      <div className={`${toC > 10 ? "warm" : "cold"}`}>
+        <h1>Weather App</h1>
+        <GeoLocation
+          setData={setData}
+          setErrorMessage={setErrorMessage}
+          loactionCity={loactionCity}
+          setLocationCity={setLocationCity}
+        />
+        <Search
+          setCity={setCity}
+          city={city}
+          setData={setData}
+          setErrorMessage={setErrorMessage}
+        />
+        <h4 style={{ color: "red" }}>{errorMessage}</h4>
 
-      <h1>{data.weather.description}</h1>
-    </div>
-  );
+        <div className="city__home">
+          <h1>{data.name}</h1>
+          <h1>, {data.sys.country}</h1>
+        </div>
+        <CurrentDate />
+        <div className="tempIcon__home">
+          <div className="temperature__home">
+            <h1>{toC}&deg;C</h1>
+          </div>
+          <WeatherIcon data={data} />
+        </div>
+        <h2 style={{ padding: "15px" }}>
+          min {toC_min}&deg;C - max {toC_max}&deg;C
+        </h2>
+      </div>
+    );
+  }
 };
 
 export default Home;
