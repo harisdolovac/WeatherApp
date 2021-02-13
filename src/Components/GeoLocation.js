@@ -37,7 +37,7 @@ const GeoLocation = ({
     <div>
       <h3>Check weather by your location</h3>
 
-      <div onClick={() => geoTest()}>
+      <div onClick={() => geoTest()} className="icon__location">
         <GrLocation size={62} />
       </div>
       <h3>Or type city name</h3>

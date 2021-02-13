@@ -44,7 +44,6 @@ const Home = () => {
           setErrorMessage={setErrorMessage}
         />
         <h4 style={{ color: "red" }}>{errorMessage}</h4>
-        <CurrentDate />
       </div>
     );
   } else {
