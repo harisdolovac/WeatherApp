@@ -31,8 +31,6 @@ const GeoLocation = ({
       .then(setErrorMessage(""));
   };
 
-  console.log(loactionCity);
-
   return (
     <div>
       <h3>Check weather by your location</h3>

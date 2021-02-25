@@ -24,9 +24,6 @@ const Home = () => {
     toC_min = Math.floor(data.main.temp_min - 273.15);
   }
 
-  console.log(loactionCity);
-  console.log(data);
-
   if (Object.keys(data).length === 0) {
     return (
       <div className="default__home">
